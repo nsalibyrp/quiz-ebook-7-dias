@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>7 Dias para Desapegar e Assumir o Controle</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#faf6ee;--card:#fff;--ink:#16323a;--mut:#5d6f74;--ac:#d9603b;--teal:#124b5a;--gold:#b8975f;--soft:#fff4dc;--line:#e6dcc8;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1b20;--card:#14282f;--ink:#efe6d6;--mut:#9fb0b3;--ac:#ee7a55;--teal:#7cc3d4;--gold:#d2b277;--soft:#1d343b;--line:#2a444c;color-scheme:dark}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:20px 18px 48px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 10px}
+h1{font-size:1.9rem;color:var(--teal)}h1 em{color:var(--ac);font-style:normal}h2{font-size:1.4rem;color:var(--teal)}
+.sub{color:var(--mut)}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:14px 0}.bar i{display:block;height:100%;background:var(--ac)}
+.day{display:flex;gap:12px;align-items:center;width:100%;text-align:left;cursor:pointer;color:inherit;font:inherit}
+.day b{flex:0 0 38px;height:38px;border-radius:50%;background:var(--teal);color:var(--bg);display:grid;place-items:center;font-family:Georgia,serif}
+.day.lock{opacity:.5;cursor:not-allowed}.day.ok b{background:var(--ac)}.day small{color:var(--mut);display:block;line-height:1.3}
+button{font:inherit}.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;font-weight:600}
+.btn.alt{background:transparent;color:var(--teal);border:1px solid var(--teal)}.row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:12px 0}.tabs button{flex:1 0 auto;padding:8px 12px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--mut);cursor:pointer;font-size:.85rem}
+.tabs button.on{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+.ex{background:var(--soft)}.q{border-left:3px solid var(--gold);padding:4px 14px;margin:18px 0;font-style:italic;color:var(--teal)}
+textarea,input{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;margin:4px 0 10px}
+textarea{min-height:76px;resize:vertical}label{font-size:.88rem;font-weight:600;color:var(--teal)}
+.step{display:flex;gap:10px;margin:8px 0}.step input{width:20px;margin:4px 0;flex:none}
+.timer{font:700 2.8rem Georgia,serif;text-align:center;color:var(--teal)}.burn{transition:opacity 1.4s,filter 1.4s}.burn.go{opacity:0;filter:blur(6px) sepia(1)}
+.back{background:none;border:0;color:var(--mut);cursor:pointer;padding:0;margin-bottom:8px}.fine{font-size:.78rem;color:var(--mut);margin-top:30px}
+</style></head><body><main id="app"></main>
+<script>
+const D=[
+{t:"A Ilusão da Idealização e o Vício Emocional",s:"Desconstruindo o sequestro dopaminérgico e a projeção do passado.",
+dx:"Você se vê preso na lembrança de alguém ou de uma fase que já acabou. Passa horas revisitando conversas antigas, projetando cenários ou sentindo um vazio no peito ao encarar a realidade atual. A dor não vem do que a situação realmente era, mas do retrato perfeito que a sua mente pinta sobre o que ela poderia ter sido. Você sente falta da versão idealizada que construiu na própria cabeça.",
+sc:"Ao se conectar intensamente a alguém ou a uma expectativa, o cérebro associa essa fonte a picos frequentes de dopamina. Ao perder o estímulo, entra em um estado análogo à abstinência química. Para compensar, aciona o Viés da Memória Seletiva: apaga conflitos e incompatibilidades e hiperfoca nos momentos de prazer, uma estratégia biológica para fazer você buscar a “droga” (o contato, a validação ou a lembrança) novamente.",
+vc:"Idealização é um ato de ficção da sua mente. Quando sente saudade, você assiste a um filme editado em que cortou todas as cenas ruins. A pessoa ou situação de quem sente falta não existe na realidade: é um personagem criado pela sua carência. Pare de tratar lembranças romantizadas como fatos concretos.",
+et:"A Lista do Choque de Realidade",ty:"facts",
+es:["Escreva 5 fatos inquestionáveis de desrespeito, incompatibilidade ou dor que essa pessoa ou situação te causou (ex.: “Sumia por dias sem dar explicação”).","Leia essa lista em voz alta toda vez que a mente tentar romantizar o passado ou gerar a urgência de mandar uma mensagem."],
+en:"Em vez de “Por que não deu certo?”, pergunte: “O que a atitude dessa pessoa/situação me mostra sobre quem ela realmente é hoje?”",
+q:"Você não pode construir um futuro novo enquanto continuar pagando aluguel na ilusão do seu passado."},
+{t:"A Armadilha da Hipervigilância e o Medo da Rejeição",s:"Desarmando o estado de alerta constante e a dependência de aprovação.",
+dx:"Você vive em tensão constante, monitorando o humor, o tom de voz e as respostas das pessoas. Qualquer variação, como uma mensagem mais seca ou um silêncio prolongado, é interpretada na hora como ameaça ou sinal de que você fez algo errado. Você pisa em ovos para evitar conflito, sacrificando a autenticidade para que ninguém se afaste.",
+sc:"A Hipervigilância Afetiva é uma resposta adaptativa do sistema nervoso simpático, frequentemente desenvolvida em ambientes marcados por imprevisibilidade e instabilidade emocional. O cérebro registrou que rejeição ou conflito eram risco à segurança, e a amígdala basolateral (centro de detecção de ameaças) permanece hiperativa, transformando pistas neutras em alerta vermelho e fazendo você antecipar o abandono antes que ele aconteça.",
+vc:"O comportamento e o humor dos outros não são reflexo do seu valor. As pessoas carregam as próprias frustrações e limitações. Tratar o silêncio ou o estresse alheio como acusação é egocentrismo defensivo: você não é o centro da gravidade emocional do mundo. Controlar a percepção dos outros para se sentir seguro é uma batalha perdida que só gera exaustão.",
+et:"O Protocolo de Desconexão da Culpa",ty:"steps",
+es:["Pause e Nomeie: respire fundo e diga mentalmente: “Isso é a minha amígdala tentando me proteger de uma ameaça que não existe.”","Avaliação Factual: “Existe algum fato concreto e explícito que comprove que eu fiz algo errado, ou estou deduzindo com base na minha ansiedade?”","Devolução de Responsabilidade: repita em voz alta: “O humor do outro pertence ao outro. Eu não sou responsável por carregar emoções que não me pertencem.”"],
+en:"Use sempre que sentir a urgência de perguntar “Está tudo bem?” ou de consertar o humor de alguém.",
+q:"A sua necessidade de agradar a todos é a forma mais rápida de se perder de si mesmo."},
+{t:"A Necessidade de Fechamento e o Fim das Explicações",s:"Libertando a mente da busca obsessiva por respostas e validação externa.",
+dx:"Você está preso em um ciclo de ruminação, revivendo conversas e tentando entender o motivo exato de um término, de um afastamento ou de uma atitude injusta. A mente insiste que só seguirá em frente quando a outra pessoa admitir o erro, pedir desculpas ou explicar. Você transformou a ação alheia na chave que tranca e destranca a sua paz.",
+sc:"A Necessidade de Fechamento Cognitivo é o impulso de eliminar incerteza e ambiguidade. O cérebro tem aversão a cenários sem resolução, pois a falta de sentido consome mais recursos do córtex pré-frontal do que uma verdade amarga. Sem explicação do outro, o viés de confirmação preenche as lacunas com autoculpabilização (“se eu tivesse feito diferente…”). Essa busca por um “ponto final” perfeito também é uma esquiva do luto real da perda.",
+vc:"A atitude e o desrespeito do outro já são a resposta final. Esperar desculpas ou uma explicação madura de quem agiu de forma imatura é ilusão. O silêncio, a esquiva e a mentira são dados concretos sobre quem essa pessoa é. Você não precisa que ela assine um termo de responsabilidade para fechar a porta: o fechamento não se recebe dos outros, se concede a si mesmo.",
+et:"A Carta da Restituição do Ponto Final",ty:"burn",
+es:["Reserve 15 minutos sem distrações. Escreva sem filtros tudo o que ficou engasgado: injustiças, perguntas sem resposta, raiva e decepção.","No final, escreva: “A sua falta de maturidade/respeito foi a única resposta que eu precisei. Eu retiro o poder que te dei sobre o meu futuro.”","Destruição simbólica: rasgue ou queime a folha com segurança (aqui, use o botão abaixo). Isso sinaliza ao cérebro que a pendência foi encerrada por decisão sua."],
+q:"Exigir consideração de quem te feriu é continuar entregando o controle da sua vida nas mãos do seu agressor."},
+{t:"A Paralisação pela Busca do Momento Perfeito",s:"Desmantelando o perfeccionismo defensivo e a procrastinação por medo do erro.",
+dx:"Você tem projetos engavetados, conversas difíceis adiadas e decisões vitais congeladas porque “ainda não é a hora certa”. Espera mais dinheiro, clareza, energia ou segurança antes do primeiro passo. Maquia o medo do fracasso com o rótulo de perfeccionismo, mas a busca pelo momento ideal é a forma mais refinada de autossabotagem para não se expor.",
+sc:"O perfeccionismo não é padrão de excelência; é um mecanismo de esquiva emocional. O cérebro interpreta errar ou ser julgado como ameaça ao autoconceito e ativa a Procrastinação Defensiva: libera cortisol ao imaginar a falha, e você prefere a segurança de não tentar à vulnerabilidade de aprender. Troca a dor da tentativa pelo alívio imediato da inação, acumulando uma dívida de frustração.",
+vc:"A clareza não precede a ação; é fruto dela. Você nunca se sentirá 100% pronto, porque a certeza absoluta não existe. O “momento perfeito” é uma miragem criada pela ansiedade para mantê-lo onde está. Fazer algo imperfeito hoje gera dados reais e progresso; esperar o cenário ideal gera paralisia e arrependimento.",
+et:"A Regra da Execução Mínima Imperfeita",ty:"timer",tm:300,
+es:["Defina a Menor Microação Possível: reduza a tarefa até ficar ridícula de tão simples (em vez de “começar a treinar”, vista a roupa de treino).","Execute sem julgamento por apenas 300 segundos. O objetivo não é fazer bem feito, é quebrar a inércia do sistema nervoso.","Elimine a opção de desistir: repita mentalmente “Antes feito e imperfeito do que perfeito e inexistente.”"],
+q:"O perfeccionismo é a armadura de quem tem pavor de ser visto tentando."},
+{t:"A Síndrome do Salvador e a Separação de Responsabilidades",s:"Desativando o esquema de autossacrifício e o hábito de carregar fardos alheios.",
+dx:"Você vive exausto porque assumiu a função de pilar emocional, financeiro ou estrutural da vida dos outros. Perde o sono com dilemas que não lhe pertencem, antecipa necessidades de adultos e sente culpa sufocante ao focar nos próprios projetos ou dizer “não”. Mascara a necessidade de controle e aprovação como “generosidade” e se torna refém do papel de salvador.",
+sc:"O padrão está ancorado no Esquema de Autossacrifício e na dependência de utilidade. Em algum momento, o cérebro aprendeu que a sua presença só tinha valor se você resolvesse problemas ou aliviasse a dor de alguém. “Salvar” gera descarga temporária de dopamina e sensação de controle; deixar o outro enfrentar as consequências aciona a amígdala, com alarmes de culpa e medo de abandono. Você se sacrifica para anestesiar a própria ansiedade, não apenas para ajudar.",
+vc:"Você não pode amadurecer pelas outras pessoas. Ao carregar os problemas de adultos funcionais, você as priva do aprendizado necessário para evoluírem. Assumir as escolhas dos outros é uma forma velada de controle. Sua responsabilidade primária e inegociável é com a sua própria vida: todo “sim” dito por culpa é um “não” dito ao seu futuro.",
+et:"O Protocolo da Separação de Tarefas",ty:"steps",
+es:["Faça a Pergunta da Autoria: “De quem são as consequências finais se esse problema não for resolvido?” Se forem do outro, a tarefa pertence ao outro.","Defina o Limite de Apoio: troque o fazer pelo outro por apoio moral. Ex.: “Eu confio na sua capacidade de resolver isso, mas não posso assumir essa tarefa por você.”","Sustente o Desconforto da Culpa: ela vai surgir. Não reaja; permaneça em silêncio. É o cérebro se acostumando com um novo limite saudável."],
+q:"Carregar o fardo dos outros não te torna uma pessoa boa, apenas uma pessoa exausta e incapaz de cuidar de si mesma."},
+{t:"A Intolerância ao Silêncio e a Fuga de Si Mesmo",s:"Desconstruindo a hiperestimulação e o pavor da própria companhia.",
+dx:"Você não suporta o próprio silêncio. Entra no carro e liga o rádio, arruma a casa ouvindo podcast, dorme rolando o feed. O vazio te apavora e você usa o excesso de informação como anestésico para não encarar o que acontece na mente quando as telas se apagam. Confunde hiperatividade com produtividade ou relaxamento, mas está correndo dos próprios pensamentos.",
+sc:"O cérebro desenvolve dependência de estímulos rápidos (picos de dopamina) para mascarar o desconforto emocional. Sem distrações, a Rede de Modo Padrão (DMN), que processa auto-reflexão e projeta passado e futuro, entra em ação. Se há emoções reprimidas ou lutos não processados, ela os traz à superfície. A ansiedade no silêncio é a amígdala reagindo a questões mal resolvidas que finalmente encontraram espaço.",
+vc:"Distração contínua não é descanso; é fuga. Você não pode curar aquilo que se recusa a sentir, e fugir de si consome energia enorme enquanto as feridas governam suas atitudes nos bastidores. A angústia noturna não é o escuro te atacando; é a sua voz cobrando o que foi empurrado para debaixo do tapete. O silêncio não é o inimigo: é o lugar onde a clareza pode ser encontrada.",
+et:"O Protocolo de Exposição ao Vazio",ty:"timer",tm:900,
+es:["Desconexão Total: deixe celular, computador e qualquer fonte de ruído em outro cômodo.","Exposição de 15 Minutos: sente-se em ambiente silencioso e apenas observe a mente, cronometrado. Não medite, não tente esvaziar a cabeça.","Observação Neutra: angústia, tédio e urgência de levantar vão aparecer. Não lute contra eles. Reconheça: “Isso é o meu cérebro em abstinência de distração”, e fique até o tempo acabar."],
+q:"Quem não consegue sentar em silêncio com a própria mente será para sempre refém de qualquer ruído que prometa alívio."},
+{t:"A Desativação do Teto de Tolerância e a Posse do Seu Futuro",s:"Superando a ansiedade do sucesso e assumindo a nova identidade.",
+dx:"Toda vez que as coisas começam a dar certo, na carreira, nas finanças ou nos relacionamentos, você encontra uma forma sutil de estragar tudo: cria conflitos do nada, procrastina entregas cruciais, gasta por impulso ou é tomado pela ansiedade de que “algo terrível vai acontecer”. Você não tem medo apenas de falhar; tem pavor inconsciente de sustentar o próprio sucesso e a estabilidade.",
+sc:"É o Teto de Tolerância Emocional (Upper Limit Problem). Cada pessoa tem uma “zona de conforto emocional” pré-programada pela história de vida. Quem cresceu em ambientes caóticos ou de cobrança associou estresse e dor à sua linha de base. Quando a vida atinge níveis inéditos de paz ou conquista, o sistema nervoso lê o desconhecido como anomalia perigosa, a amígdala dispara o alarme e o cérebro mobiliza autossabotagem para devolvê-lo ao sofrimento “seguro e familiar”.",
+vc:"A paz não é o prenúncio de uma tragédia; é o seu estado natural. Sentir ansiedade quando as coisas vão bem não significa que algo vai dar errado: significa que a sua capacidade de tolerar o bem-estar está expandindo. A autossabotagem é a identidade antiga tentando mantê-lo apequenado. Pare de recuar quando a vida começa a dar certo e aceite a estabilidade como sua nova realidade.",
+et:"O Protocolo de Ancoragem da Nova Identidade",ty:"id",
+es:["Mapeie o Gatilho do Sabotador: qual é o seu comportamento padrão quando as coisas vão bem? (ex.: “Eu sumo”, “Eu arrumo briga”, “Eu procrastino”)","Defina a Frase de Interrupção. Ao sentir a ansiedade da paz, diga em voz alta: “Eu não preciso estragar nada para me sentir em segurança. Eu sou capaz de sustentar esse progresso.”","Declaração da Nova Identidade: escreva 3 regras inegociáveis para o seu novo ciclo (ex.: “Eu não aceito menos do que respeito.”)."],
+q:"Você não alcança a liberdade quando os seus problemas acabam, mas sim quando você para de criar problemas para se sentir seguro."}];
+const QZ=["Revisito conversas antigas ou checo o perfil de alguém que já saiu da minha vida.","Uma mensagem mais seca ou um silêncio de alguém me deixa em alerta por horas.","Fico remoendo o motivo de um término ou de uma injustiça, esperando uma explicação.","Adio projetos e decisões porque ainda não é o momento perfeito.","Assumo os problemas dos outros e sinto culpa ao dizer “não”.","Tenho dificuldade de ficar em silêncio, sem celular ou som.","Quando as coisas vão bem, acabo estragando algo ou fico esperando o pior."];
+let QA=[],qi=0;
+function quiz(){
+if(qi<7){app.innerHTML=`<button class="back" id="bk">← Voltar</button><div class="bar"><i style="width:${qi/7*100}%"></i></div><p class="sub">Pergunta ${qi+1} de 7</p><h2>${QZ[qi]}</h2><p class="sub">Com que frequência isso acontece na sua vida?</p>${["Quase nunca","Às vezes","Com frequência"].map((o,j)=>`<button class="card day" data-a="${j}"><span>${o}</span></button>`).join("")}`;
+$("#bk").onclick=()=>go("home");
+app.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{QA[qi]=+b.dataset.a;qi++;if(qi==7){const top=QA.map((s,i)=>[s,i]).sort((a,b)=>b[0]-a[0]||a[1]-b[1]).map(x=>x[1]);S.q={sc:QA.slice(),top};sv()}quiz();window.scrollTo(0,0)});return}
+const q=S.q,mx=Math.max(...q.sc);
+app.innerHTML=`<button class="back" id="bk">← Voltar</button><h2>Seu resultado</h2>${mx==0?`<p>Você marcou poucos padrões fortes agora. Siga a trilha na ordem e observe o que aparece.</p>`:`<p class="sub">Os padrões que mais aparecem hoje na sua vida:</p>${q.top.slice(0,3).filter(i=>q.sc[i]>0).map((i,k)=>`<div class="card ${k==0?"ex":""}"><b>${k==0?"Mais forte: ":""}Dia ${i+1}: ${D[i].t}</b><p class="sub">${D[i].s}</p></div>`).join("")}`}<p>A trilha continua em sequência, como no ebook. O dia recomendado fica marcado para você, e você pode voltar a ele quando quiser.</p><div class="row"><button class="btn" id="ir">Ir para a trilha</button><button class="btn alt" id="rf">Refazer</button></div><p class="fine">Este quiz é uma reflexão de autoconhecimento. Não é diagnóstico nem substitui acompanhamento profissional.</p>`;
+$("#bk").onclick=$("#ir").onclick=()=>go("home");$("#rf").onclick=()=>{QA=[];qi=0;quiz()}}
+const ST=["Diagnóstico","Ciência","Virada de Chave","Exercício"];
+const DI=[["Antes da prática, percebi…","antes"],["Durante a prática, percebi…","dur"],["Depois da prática, percebi…","dep"],["Mudanças no meu comportamento, pensamentos ou emoções","mud"],["Próximo passo para amanhã","prox"]];
+let S={done:[],n:{}},v="home",st=0,tick=null,secs=0;
+try{S=Object.assign(S,JSON.parse(localStorage.getItem("j7")||"{}"))}catch(e){}
+const sv=()=>{try{localStorage.setItem("j7",JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s),app=$("#app");
+const open=i=>i===0||S.done.includes(i-1);
+function fld(k,l,rows){return `<label>${l}</label><textarea data-k="${k}" ${rows?`style="min-height:${rows}px"`:""}>${S.n[k]||""}</textarea>`}
+function go(x,s){clearInterval(tick);v=x;st=s||0;render();window.scrollTo(0,0)}
+function render(){
+if(v==="quiz"){quiz();return}
+if(v==="home"){const p=S.done.length;
+app.innerHTML=`<h1>7 Dias para <em>Desapegar</em> e Assumir o Controle</h1><p class="sub">O guia prático para quebrar padrões nocivos, vencer a autossabotagem e retomar a sua vida.</p>
+<div class="card"><b>Nota de compromisso</b><p>A transformação não ocorre pela leitura passiva, mas pela execução. Faça o exercício de cada dia antes de avançar: o próximo dia só abre quando você conclui o anterior. Cada dia tem diagnóstico, explicação científica, virada de chave e exercício prático.</p></div>
+${S.q?`<div class="card ex"><b>Seu padrão mais forte hoje</b><p>Dia ${S.q.top[0]+1}: ${D[S.q.top[0]].t}</p><button class="btn alt" id="qz">Refazer o quiz</button></div>`:`<div class="card ex"><b>Descubra qual padrão mais te trava</b><p class="sub">7 perguntas rápidas, só para autoconhecimento.</p><button class="btn" id="qz">Fazer o quiz</button></div>`}<div class="bar"><i style="width:${p/7*100}%"></i></div><p class="sub">${p} de 7 dias concluídos</p>
+${D.map((d,i)=>`<button class="card day ${open(i)?"":"lock"} ${S.done.includes(i)?"ok":""}" data-d="${i}"><b>${S.done.includes(i)?"✓":i+1}</b><span><strong>Dia ${i+1}${S.q&&S.q.top[0]===i?` <em style="color:var(--ac);font-size:.8rem">★ recomendado</em>`:""}</strong><small>${d.t}</small></span></button>`).join("")}
+<button class="card day ${p==7?"":"lock"}" data-d="end"><b>★</b><span><strong>Conclusão</strong><small>Plano de manutenção e declaração de posse</small></span></button>
+<p class="fine">Conteúdo educativo e de autoconhecimento. Não substitui psicoterapia, acompanhamento médico ou avaliação profissional, nem constitui diagnóstico ou tratamento. Interrompa qualquer exercício que cause sofrimento intenso e procure um profissional qualificado. Seus registros ficam salvos apenas neste aparelho. © 2026 Por Trás da Mente. Todos os direitos reservados.</p>`;
+const qb=$("#qz");if(qb)qb.onclick=()=>{QA=[];qi=0;go("quiz")};
+app.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const x=b.dataset.d;if(x==="end"){if(p==7)go("end")}else if(open(+x))go(+x)});return}
+if(v==="end"){app.innerHTML=`<button class="back" id="bk">← Voltar</button><h2>Conclusão: O Plano de Manutenção Contínua</h2>
+<p>Chegar ao final destes 7 dias não significa estar imune aos velhos gatilhos, mas que você perdeu a inocência. A transformação real é um estado de vigilância ativa: nos momentos de estresse, o cérebro tentará retornar aos caminhos antigos, e agora você tem ferramentas para interromper o ciclo.</p>
+<div class="card"><b>Os 4 Mandamentos da Manutenção Emocional</b><ol><li><b>Cumpra os seus acordos invisíveis.</b> Cada promessa a si mesmo não cumprida ensina ao cérebro que a sua palavra não é confiável.</li><li><b>Interrompa a narrativa no primeiro segundo.</b> Não alimente a faísca com histórias, hipóteses ou checagens em redes sociais. Use a dúvida factual a seu favor.</li><li><b>Tolere a culpa do progresso.</b> Dizer “não” e largar o papel de salvador traz culpa. Não reaja: ela é a dor do crescimento da sua autonomia.</li><li><b>O ambiente molda o seu comportamento.</b> Não se cura um vício emocional frequentando os mesmos lugares e mantendo o mesmo acesso a quem alimenta o seu estado de alerta.</li></ol></div>
+<div class="card ex">${fld("c30","Meu compromisso para os próximos 30 dias",90)}${fld("padrao","O padrão que ainda preciso observar",70)}</div>
+<div class="card"><b>Declaração de Posse</b><p><i>“Eu declaro encerrado o ciclo de busca por validação externa, idealização do passado e autossabotagem. Eu assumo a responsabilidade integral pelas minhas escolhas, pelo meu tempo e pela minha paz a partir deste momento.”</i></p><label>Nome</label><input data-k="nome" value="${S.n.nome||""}"><label>Data</label><input type="date" data-k="data" value="${S.n.data||""}"></div>
+<div class="q">O desapego não é sobre não possuir nada. É sobre não permitir que nada possua você.</div>`;
+}else{const d=D[v],i=v;let body="";
+if(st==0)body=`<h3>1. O Diagnóstico</h3><p>${d.dx}</p>`;
+if(st==1)body=`<h3>2. A Explicação Científica</h3><p>${d.sc}</p>`;
+if(st==2)body=`<h3>3. A Virada de Chave</h3><p>${d.vc}</p>`;
+if(st==3){const k="e"+i;let x="";
+if(d.ty=="facts")x=[1,2,3,4,5].map(n=>`<input data-k="${k}f${n}" placeholder="Fato ${n}" value="${S.n[k+"f"+n]||""}">`).join("");
+else if(d.ty=="burn")x=`<div class="burn" id="bn">${fld(k+"c","Sua carta",170)}</div><button class="btn alt" id="bb">🔥 Destruir a carta</button>`;
+else if(d.ty=="timer")x=`<div class="timer" id="tm">${fmt(d.tm)}</div><div class="row"><button class="btn" id="ts">Iniciar</button><button class="btn alt" id="tr">Reiniciar</button></div>${fld(k+"n","Anotações",80)}`;
+else if(d.ty=="id")x=fld(k+"a","Meu gatilho do sabotador",60)+fld(k+"b","3 regras inegociáveis do meu novo ciclo",110);
+else x=fld(k+"n","Anotações",90);
+body=`<div class="card ex"><h3>4. ${d.et}</h3>${d.es.map((s,j)=>`<label class="step"><input type="checkbox" data-k="${k}s${j}" ${S.n[k+"s"+j]?"checked":""}><span>${s}</span></label>`).join("")}${d.en?`<p class="sub">${d.en}</p>`:""}${x}</div>
+<div class="card"><b>Diário de prática</b><br>${DI.map(([l,z])=>fld("d"+i+z,l,60)).join("")}</div><div class="q">${d.q}</div>
+<button class="btn" id="fin">${S.done.includes(i)?"Dia concluído ✓ — voltar à trilha":"Concluir o Dia "+(i+1)}</button>`}
+app.innerHTML=`<button class="back" id="bk">← Trilha</button><h2>Dia ${i+1}: ${d.t}</h2><p class="sub">${d.s}</p><div class="tabs">${ST.map((s,j)=>`<button class="${j==st?"on":""}" data-s="${j}">${s}</button>`).join("")}</div>${body}
+${st<3?`<div class="row"><button class="btn" id="nx">Continuar →</button></div>`:""}`;
+app.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>go(i,+b.dataset.s));
+const nx=$("#nx");if(nx)nx.onclick=()=>go(i,st+1);
+const f=$("#fin");if(f)f.onclick=()=>{if(!S.done.includes(i))S.done.push(i);sv();go(i==6?"end":"home")};
+if($("#bb"))$("#bb").onclick=()=>{$("#bn").classList.add("go");setTimeout(()=>{S.n["e"+i+"c"]="";sv();render()},1500)};
+if($("#ts"))timer(d.tm);}
+$("#bk").onclick=()=>go("home");
+app.querySelectorAll("[data-k]").forEach(e=>{e.oninput=e.onchange=()=>{S.n[e.dataset.k]=e.type=="checkbox"?e.checked:e.value;sv()}})}
+const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function timer(t){secs=t;const o=$("#tm");$("#ts").onclick=()=>{clearInterval(tick);tick=setInterval(()=>{secs--;o.textContent=fmt(Math.max(secs,0));if(secs<=0){clearInterval(tick);o.textContent="Concluído ✓"}},1000)};$("#tr").onclick=()=>{clearInterval(tick);secs=t;o.textContent=fmt(t)}}
+render();
+</script></body></html>
